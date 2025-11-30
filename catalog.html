@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог книг - Книжный червь</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <img src="logo.png" alt="Логотип Книжный червь" class="logo">
+                <h1 class="site-title">Книжный червь</h1>
+                <nav class="main-nav" role="navigation" aria-label="Главное меню">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="account.html">Личный кабинет</a></li>
+                        <li><a href="cart.html">Корзина (<span id="cart-count">0</span>)</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="catalog-header">
+            <h1>Каталог книг</h1>
+            <div class="catalog-controls">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Поиск книг...">
+                    <button id="search-btn">Найти</button>
+                </div>
+                <div class="filter-toggle">
+                    <button id="filter-toggle">Фильтры</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="catalog-layout">
+            <!-- Боковая панель с фильтрами -->
+            <aside class="filters-sidebar" id="filters-sidebar">
+                <div class="filter-group">
+                    <h3>Жанры</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="genre" value="Фэнтези"> Фэнтези</label>
+                        <label><input type="checkbox" name="genre" value="Научная литература"> Научная литература</label>
+                        <label><input type="checkbox" name="genre" value="Роман"> Роман</label>
+                        <label><input type="checkbox" name="genre" value="Детектив"> Детектив</label>
+                        <label><input type="checkbox" name="genre" value="Ужасы"> Ужасы</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Цена</h3>
+                    <div class="price-range">
+                        <!-- Single price slider (controls maximum price) -->
+                        <input type="range" id="price-max" min="0" max="5000" value="5000">
+                        <div class="price-values">
+                            До <span id="max-price">5000</span> руб.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Автор</h3>
+                    <input type="text" id="author-filter" placeholder="Введите автора">
+                </div>
+
+                <button id="apply-filters" class="btn-primary">Применить</button>
+                <button id="reset-filters" class="btn-secondary">Сбросить</button>
+            </aside>
+
+            <!-- Основной контент -->
+            <section class="catalog-content">
+                <div class="sort-options">
+                    <select id="sort-select">
+                        <option value="name">По названию</option>
+                        <option value="price-asc">По цене (возр.)</option>
+                        <option value="price-desc">По цене (убыв.)</option>
+                        <option value="rating">По рейтингу</option>
+                    </select>
+                </div>
+
+                <div class="books-grid" id="catalog-books">
+                    <!-- Книги будут загружены через JavaScript -->
+                </div>
+
+                <div class="pagination" id="pagination">
+                    <!-- Пагинация будет создана через JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: <a href="mailto:info@bookworm.ru">info@bookworm.ru</a></p>
+                    <p>Телефон: <a href="tel:+78001234567">8-800-123-45-67</a></p>
+                </div>
+            </div>
+            <p class="footer-signed">С любовью к книгам, Книжный червь.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

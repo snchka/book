@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - Книжный червь</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <img src="logo.png" alt="Логотип Книжный червь" class="logo">
+                <h1 class="site-title">Книжный червь</h1>
+                <nav class="main-nav" role="navigation" aria-label="Главное меню">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="account.html">Личный кабинет</a></li>
+                        <li><a href="cart.html">Корзина (<span id="cart-count">0</span>)</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Корзина покупок</h1>
+
+        <div class="cart-layout">
+            <div class="cart-items" id="cart-items">
+                <!-- Товары в корзине будут загружены через JavaScript -->
+                <div class="empty-cart" id="empty-cart">
+                    <h2>Ваша корзина пуста</h2>
+                    <p>Добавьте товары из каталога</p>
+                    <a href="catalog.html" class="btn-primary">Перейти в каталог</a>
+                </div>
+            </div>
+
+            <aside class="cart-summary">
+                <h3>Итого</h3>
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Товары (<span id="items-count">0</span>)</span>
+                        <span id="subtotal">0 руб.</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Доставка</span>
+                        <span id="shipping-cost">0 руб.</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>К оплате</span>
+                        <span id="total-cost">0 руб.</span>
+                    </div>
+                </div>
+
+                <div class="delivery-options">
+                    <h4>Способ доставки</h4>
+                    <label>
+                        <input type="radio" name="delivery" value="pickup" checked>
+                        Самовывоз (бесплатно)
+                    </label>
+                    <label>
+                        <input type="radio" name="delivery" value="courier">
+                        Курьерская доставка (300 руб.)
+                    </label>
+                </div>
+
+                <button class="btn-primary btn-checkout" id="checkout-btn">
+                    Оформить заказ
+                </button>
+
+                <div class="promo-code">
+                    <input type="text" id="promo-input" placeholder="Промокод">
+                    <button id="apply-promo">Применить</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: <a href="mailto:info@bookworm.ru">info@bookworm.ru</a></p>
+                    <p>Телефон: <a href="tel:+78001234567">8-800-123-45-67</a></p>
+                </div>
+            </div>
+            <p class="footer-signed">С любовью к книгам, Книжный червь.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

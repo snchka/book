@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Название книги - Книжный червь</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <img src="logo.png" alt="Логотип Книжный червь" class="logo">
+                <h1 class="site-title">Книжный червь</h1>
+                <nav class="main-nav" role="navigation" aria-label="Главное меню">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="cart.html">Корзина (<span id="cart-count">0</span>)</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="index.html">Главная</a> > 
+            <a href="catalog.html">Каталог</a> > 
+            <span id="book-category">Категория</span> > 
+            <span id="book-title-crumb">Название книги</span>
+        </div>
+
+        <div class="book-detail">
+            <div class="book-images">
+                <div class="main-image">
+                    <img id="book-main-image" src="" alt="Обложка книги">
+                </div>
+            </div>
+
+            <div class="book-info">
+                <h1 id="book-title">Название книги</h1>
+                <p class="book-author" id="book-author">Автор книги</p>
+                <div class="book-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-value">4.8</span>
+                    <span class="reviews-count">(124 отзыва)</span>
+                </div>
+
+                <div class="book-price">
+                    <span class="current-price" id="book-price">999 руб.</span>
+                    <span class="old-price" id="book-old-price">1299 руб.</span>
+                </div>
+
+                <div class="book-actions">
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" id="decrease-qty">-</button>
+                        <input type="number" id="quantity" value="1" min="1" max="10">
+                        <button class="quantity-btn" id="increase-qty">+</button>
+                    </div>
+                    <button class="btn-primary btn-add-to-cart" id="add-to-cart">
+                        Добавить в корзину
+                    </button>
+                    <button class="btn-secondary btn-wishlist" id="add-to-wishlist">
+                        ❤ В избранное
+                    </button>
+                </div>
+
+                <div class="book-features">
+                        <div class="feature">
+                            <strong>Доставка:</strong> Завтра
+                        </div>
+                        <div class="feature">
+                            <strong>В наличии:</strong> 15 шт.
+                        </div>
+                        <div class="feature">
+                            <strong>Гарантия:</strong> 14 дней
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-tabs">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="description">Описание</button>
+                <button class="tab-btn" data-tab="specifications">Характеристики</button>
+                <button class="tab-btn" data-tab="reviews">Отзывы</button>
+            </div>
+
+            <div class="tabs-content">
+                <div class="tab-pane active" id="description">
+                    <p id="book-description">Подробное описание книги...</p>
+                </div>
+                <div class="tab-pane" id="specifications">
+                    <table class="specs-table">
+                        <tr><th>ISBN</th><td id="spec-isbn">978-5-xxx-xxxxx-x</td></tr>
+                        <tr><th>Год издания</th><td id="spec-year">2024</td></tr>
+                        <tr><th>Издательство</th><td id="spec-publisher">Издательство</td></tr>
+                        <tr><th>Количество страниц</th><td id="spec-pages">384</td></tr>
+                        <tr><th>Переплет</th><td id="spec-binding">Твердый</td></tr>
+                    </table>
+                </div>
+                <div class="tab-pane" id="reviews">
+                    <div class="reviews-list" id="reviews-list">
+                        <!-- Отзывы будут загружены через JavaScript -->
+                    </div>
+                    <button class="btn-primary" id="add-review-btn">Добавить отзыв</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Похожие книги -->
+        <section class="similar-books">
+            <h2>Похожие книги</h2>
+            <div class="books-grid" id="similar-books">
+                <!-- Похожие книги будут загружены через JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: <a href="mailto:info@bookworm.ru">info@bookworm.ru</a></p>
+                    <p>Телефон: <a href="tel:+78001234567">8-800-123-45-67</a></p>
+                </div>
+            </div>
+            <p class="footer-signed">С любовью к книгам, Книжный червь.</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
