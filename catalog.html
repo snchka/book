@@ -30,12 +30,12 @@
         <div class="catalog-header">
             <h1>Каталог книг</h1>
             <div class="catalog-controls">
-                <div class="search-box">
-                    <input type="text" id="search-input" placeholder="Поиск книг...">
-                    <button id="search-btn">Найти</button>
+                <div class="search-box search" role="search" aria-label="Поиск по каталогу">
+                    <input class="input" type="search" id="search-input" placeholder="Поиск книг..." aria-label="Поиск книг">
+                    <button id="search-btn" class="btn btn--primary">Найти</button>
                 </div>
                 <div class="filter-toggle">
-                    <button id="filter-toggle">Фильтры</button>
+                    <button id="filter-toggle" class="btn">Фильтры</button>
                 </div>
             </div>
         </div>
@@ -51,13 +51,14 @@
                         <label><input type="checkbox" name="genre" value="Роман"> Роман</label>
                         <label><input type="checkbox" name="genre" value="Детектив"> Детектив</label>
                         <label><input type="checkbox" name="genre" value="Ужасы"> Ужасы</label>
+                        <label><input type="checkbox" name="genre" value="Ужасы"> Японская литература</label>
                     </div>
                 </div>
 
                 <div class="filter-group">
                     <h3>Цена</h3>
                     <div class="price-range">
-                        <!-- Single price slider (controls maximum price) -->
+                        <!-- фильтр цены -->
                         <input type="range" id="price-max" min="0" max="5000" value="5000">
                         <div class="price-values">
                             До <span id="max-price">5000</span> руб.
@@ -67,17 +68,17 @@
 
                 <div class="filter-group">
                     <h3>Автор</h3>
-                    <input type="text" id="author-filter" placeholder="Введите автора">
+                    <input class="input" type="text" id="author-filter" placeholder="Введите автора">
                 </div>
 
-                <button id="apply-filters" class="btn-primary">Применить</button>
-                <button id="reset-filters" class="btn-secondary">Сбросить</button>
+                <button id="apply-filters" class="btn btn-primary">Применить</button>
+                <button id="reset-filters" class="btn btn-secondary">Сбросить</button>
             </aside>
 
             <!-- Основной контент -->
             <section class="catalog-content">
                 <div class="sort-options">
-                    <select id="sort-select">
+                    <select id="sort-select" class="input custom">
                         <option value="name">По названию</option>
                         <option value="price-asc">По цене (возр.)</option>
                         <option value="price-desc">По цене (убыв.)</option>

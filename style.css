@@ -19,6 +19,13 @@
     --light-bg: #f8f9fa;
     --white: #ffffff;
     --border-color: #e0e0e0;
+    /* input / control variables (new) */
+    --control-bg: var(--white);
+    --control-border: var(--border-color);
+    --accent: var(--primary-color);
+    --control-radius: 8px;
+    --control-text: var(--text-color);
+    --control-placeholder: #9aa6b2;
     --shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
@@ -103,6 +110,87 @@ body {
 
 .btn-primary:hover {
     background: #ff85c7;
+}
+
+/* New generic button + control styling (keeps existing .btn-primary / .btn-secondary working) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 8px 12px;
+    border-radius: var(--control-radius);
+    border: 1px solid var(--control-border);
+    background: linear-gradient(#fff,#fbfbff);
+    color: var(--control-text);
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn:focus{ outline: none; box-shadow: 0 0 0 4px rgba(0,0,0,0.06); }
+.btn--primary { /* lightweight mapped variant */
+    background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 70%, black 15%));
+    color: var(--white);
+    border-color: rgba(0,0,0,0.06);
+}
+
+/* Inputs / selects / textareas consistent styling */
+input[type="text"], input[type="search"], textarea, select, .input {
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--control-text);
+    background: var(--control-bg);
+    border: 1px solid var(--control-border);
+    padding: 10px 12px;
+    border-radius: var(--control-radius);
+    box-sizing: border-box;
+    transition: box-shadow .16s ease, border-color .16s ease, transform .06s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+input[type="text"]::placeholder, input[type="search"]::placeholder, .input::placeholder {
+    color: var(--control-placeholder);
+}
+
+input[type="text"]:focus, input[type="search"]:focus, textarea:focus, select:focus, .input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 40%, transparent);
+    transform: translateY(-1px);
+}
+
+/* search box — icon on the left */
+.search {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.search input[type="search"], .search input[type="text"] {
+    padding-left: 40px;
+}
+.search::before{
+    content: "";
+    position: absolute;
+    left: 12px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path fill='%239aa6b2' d='M21 21l-4.35-4.35M10.5 18A7.5 7.5 0 1 1 10.5 3a7.5 7.5 0 0 1 0 15z' /></svg>") no-repeat center/contain;
+    pointer-events: none;
+}
+
+/* Nice-looking select with custom arrow */
+select.custom, .input[type='select'], select {
+    padding-right: 36px;
+    background-image: linear-gradient(transparent, transparent), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'><path fill='%23777' d='M7 10L0 0h14z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+/* small responsive tweaks for compact controls */
+@media (max-width:480px){
+    input[type="text"], input[type="search"], select, .input { padding: 8px 10px; font-size:13px }
+    .btn { padding: 8px 10px; font-size: 13px }
 }
 
 .btn-secondary {
@@ -451,6 +539,44 @@ body {
     margin-top: 1rem;
 }
 
+/* Strong visual style and font for the checkout button in the cart */
+#checkout-btn {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    padding: 18px 22px; /* larger hit area */
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(233,91,169,0.18);
+    transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
+    /* уменьшенная ширина — половина от контейнера */
+    width: 50%;
+    max-width: 260px; /* ограничение чтобы не становилась слишком длинной на широких экранах */
+    display: block;
+    /* выравниваем по левому краю внутри боковой панели */
+    margin: 1rem 0 0 0; /* верх 1rem, слева 0 */
+    margin-left: 0; /* явно слева */
+    /* placement: make the button pinned to the bottom inside the cart summary when scrolling */
+    position: sticky;
+    bottom: 18px;
+    z-index: 30;
+}
+#checkout-btn:hover { transform: translateY(-3px); filter: brightness(1.03); }
+#checkout-btn:focus { outline: none; box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 24%, transparent); }
+
+/* Promo apply button in cart — smaller, compact, matching site font */
+#apply-promo {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, black 5%);
+    background: transparent;
+}
+#apply-promo:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); transform: translateY(-1px); }
+#apply-promo:focus { outline: none; box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 10%, transparent); }
+
 /* Анимации */
 @keyframes fadeIn {
     from {
@@ -482,4 +608,132 @@ body {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+/* Specific UI tweaks requested by the user */
+/* Make inputs inside the sidebar fit the panel (prevents overflow) */
+.filters-sidebar .input {
+    width: 100%;
+    display: block; /* ensure it sits on its own line */
+}
+
+/* Change font for small utility buttons: filter in catalog and send in contacts */
+#filter-toggle,
+#contact-form button[type="submit"],
+#contact-form .btn-primary {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    text-transform: none;
+}
+
+/* Account form inputs: make text semi-transparent to appear "transparent" but still readable */
+#profile-form .input, #profile-form input {
+    color: rgba(0,0,0,0.35);
+}
+
+/* Sidebar filter buttons — size, layout and distinct styling */
+.filters-sidebar .btn {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+}
+
+/* Apply — primary look that matches brand accent */
+#apply-filters.btn-primary {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 700;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 85%, white 10%), var(--accent));
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, black 10%);
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+#apply-filters.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.14);} 
+#apply-filters.btn-primary:focus { outline: none; box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 30%, transparent); }
+
+/* Reset — secondary neutral look but still visible */
+#reset-filters.btn-secondary {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 600;
+    background: transparent;
+    color: var(--accent);
+    border: 1px dashed color-mix(in srgb, var(--accent) 45%, black 10%);
+}
+#reset-filters.btn-secondary:hover { background: rgba(0,0,0,0.04); transform: translateY(-1px); }
+#reset-filters.btn-secondary:focus { outline: none; box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 12%, transparent); }
+
+/* Specific font for the 'Сохранить' button in the account page */
+#save-profile {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    padding: 10px 16px; /* slightly larger clickable area */
+}
+
+/* Fonts for common action buttons requested by the user */
+.btn-add-to-cart, .add-to-cart-btn,
+.btn-wishlist,
+.tab-btn,
+#add-review-btn {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    text-transform: none;
+}
+
+/* Slight visual improvement for tab buttons */
+.tab-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+.tab-btn.active { background: rgba(0,0,0,0.04); }
+
+/* Pagination controls for catalog page */
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.25rem;
+}
+
+.page-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;
+    color: var(--control-text);
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    font-weight: 600;
+    min-width: 36px;
+    text-align: center;
+}
+
+.page-btn:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 50%, black 10%); box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
+
+.page-btn[aria-current="page"] {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 85%, white 10%), var(--accent));
+    color: white;
+    border-color: color-mix(in srgb, var(--accent) 65%, black 10%);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+        /* checkout button — на мобильных оставляем 100% */
+        #checkout-btn { width: 100% !important; max-width: none; position: static; bottom: auto; margin: 0.75rem 0 0; }
+    .page-btn { padding: 6px 8px; min-width: 34px; font-size: 13px; }
+    .pagination { gap: 6px; }
 }

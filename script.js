@@ -259,6 +259,19 @@ function initMobileMenu() {
     if (toggle && nav) {
         toggle.addEventListener('click', () => {
             nav.classList.toggle('active');
+            // Update accessible state on the button
+            const expanded = nav.classList.contains('active');
+            try { toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false'); } catch(e) {}
+        });
+
+        // Close the menu when user clicks a link (mobile behavior)
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    try { toggle.setAttribute('aria-expanded', 'false'); } catch(e) {}
+                }
+            });
         });
     }
 }
