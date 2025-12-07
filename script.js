@@ -47,10 +47,12 @@ const CartManager = {
         }
     },
     
+    // Возвращает общее количество единиц товаров в корзине
     getTotalItems() {
         return this.getCart().reduce((total, item) => total + item.quantity, 0);
     },
     
+    // Возвращает общую стоимость товаров в корзине (в рублях)
     getTotalPrice() {
         return this.getCart().reduce((total, item) => total + (item.price * item.quantity), 0);
     },
@@ -224,14 +226,14 @@ const BookManager = {
     }
     ,
 
-    // Return latest N books based on the array order (useful for "Новинки")
+    // Возвращает последние N книг в порядке массива (для блока "Новинки")
     getLatestBooks(count = 4) {
         if (!Array.isArray(this.books) || this.books.length === 0) return [];
         // Возвращаем последние добавленные книги (по порядку в массиве)
         return this.books.slice(-count).reverse();
     },
 
-    // Return top rated books
+    // Возвращает топовые книги по рейтингу
     getTopRated(count = 4) {
         return [...this.books]
             .filter(b => !(this.catalogExclusions && this.catalogExclusions.includes(b.id)))
@@ -259,7 +261,7 @@ function initMobileMenu() {
     if (toggle && nav) {
         toggle.addEventListener('click', () => {
             nav.classList.toggle('active');
-            // Update accessible state on the button
+            // Обновляем состояние доступности кнопки (aria-expanded)
             const expanded = nav.classList.contains('active');
             try { toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false'); } catch(e) {}
         });
@@ -359,7 +361,7 @@ function initCatalogPage() {
         }, 300));
     }
 
-    // Цена (single slider) — обновляем отображаемое значение и применяем фильтр при движении ползунка
+    // Цена (одиночный ползунок) — обновляем отображаемое значение и применяем фильтр при движении ползунка
     const priceRange = document.getElementById('price-max');
     const priceDisplay = document.getElementById('max-price');
     if (priceRange) {
@@ -373,7 +375,7 @@ function initCatalogPage() {
     
     function getCurrentFilters() {
         const genres = Array.from(document.querySelectorAll('input[name="genre"]:checked')).map(i => i.value);
-        // We use a single slider for maximum price
+        // Используем одиночный ползунок для задания максимальной цены
         const maxPriceEl = document.getElementById('price-max');
         const authorEl = document.getElementById('author-filter');
 
@@ -386,7 +388,8 @@ function initCatalogPage() {
         };
     }
 
-    function updatePagination() {
+        // Обновляет блок пагинации в каталоге и навешивает обработчики на номера страниц
+        function updatePagination() {
         const paginationContainer = document.getElementById('pagination');
         if (!paginationContainer) return;
 
@@ -415,6 +418,7 @@ function initCatalogPage() {
         });
     }
 
+    // Собирает, сортирует и отображает книги согласно текущим фильтрам и пагинации
     function applyFilters() {
         const filters = getCurrentFilters();
         const searchQuery = searchInput ? searchInput.value : '';
@@ -440,7 +444,7 @@ function initCatalogPage() {
 }
 
 function initBookPage() {
-    // Загрузка данных книги из URL параметров
+    // Загружает данные книги по id, указанному в параметрах URL и подготавливает обработчики на странице книги
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = parseInt(urlParams.get('id')) || 1;
     
@@ -449,7 +453,7 @@ function initBookPage() {
         renderBookDetails(book);
     }
     
-    // Обработчики для добавления в корзину
+    // Кнопка добавления в корзину: добавляем выбранное количество
     const addToCartBtn = document.getElementById('add-to-cart');
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', function() {
@@ -462,7 +466,7 @@ function initBookPage() {
 function initCartPage() {
     renderCartItems();
     
-    // Обработчики для обновления количества
+    // Глобальный обработчик кликов на странице корзины: изменение количества и удаление товаров
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('quantity-btn')) {
             const itemId = parseInt(e.target.closest('.cart-item').dataset.id);
@@ -505,7 +509,7 @@ function initContactsPage() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Валидация формы
+                    // Проверяем заполнение формы перед отправкой
             if (validateContactForm()) {
                 // Отправка формы (заглушка)
                 alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
@@ -515,7 +519,8 @@ function initContactsPage() {
     }
 }
 
-// Вспомогательные функции
+// ---------- Вспомогательные функции для рендеринга и утилит ----------
+// Рендерит сетку карточек книг в указанном контейнере
 function renderBooksGrid(containerId, books) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -538,7 +543,7 @@ function renderBooksGrid(containerId, books) {
         </div>
     `).join('');
     
-    // Добавляем обработчики для кнопок "В корзину"
+    // Навешиваем обработчики "В корзину" для свежего набора карточек
     container.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const bookId = parseInt(this.dataset.bookId);
@@ -550,6 +555,7 @@ function renderBooksGrid(containerId, books) {
     });
 }
 
+// Рендерит содержимое корзины (страница cart.html)
 function renderCartItems() {
     const container = document.getElementById('cart-items');
     const cart = CartManager.getCart();
@@ -596,7 +602,7 @@ function renderCartItems() {
         });
     }
     
-    // Обновление итогов
+    // Обновляем сводку: количество и сумму
     updateCartSummary();
 }
 
@@ -610,6 +616,7 @@ function updateCartSummary() {
     if (total) total.textContent = CartManager.getTotalPrice() + ' руб.';
 }
 
+// Утилита debounce — ограничивает частоту вызова функции (например, для поля поиска)
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -622,7 +629,7 @@ function debounce(func, wait) {
     };
 }
 
-// Рендер деталей книги на странице book.html
+// Рендер деталей выбранной книги на странице book.html
 function renderBookDetails(book) {
     if (!book) return;
 
@@ -659,7 +666,7 @@ function renderBookDetails(book) {
     renderBooksGrid('similar-books', similar);
 }
 
-// Простая валидация контактной формы
+// Простая валидация контактной формы (проверяем имя, e-mail и сообщение)
 function validateContactForm() {
     const name = document.getElementById('contact-name');
     const email = document.getElementById('contact-email');
